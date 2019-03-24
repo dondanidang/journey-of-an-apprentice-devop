@@ -43,5 +43,14 @@ data "aws_iam_policy_document" "admin_bucket" {
 
       identifiers = ["*"]
     }
+
+    condition {
+      test = "IpAddress"
+      variable = "aws:SourceIp"
+      values = [
+        "95.19.248.7",
+        "91.187.71.47"
+      ]
+    }
   }
 }

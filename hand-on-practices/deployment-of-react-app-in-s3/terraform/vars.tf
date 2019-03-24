@@ -1,5 +1,5 @@
 variable "bucket_name" {
-  default     = "vesto-admin-panel-app"
+  default     = "vesto-admin-panel-app-2"
 }
 
 variable "entry_file" {
