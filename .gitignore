@@ -1,5 +1,5 @@
 .terraform
 *.tfstate
-.tfstate.backup
+*.tfstate.backup
 terraform-up-and-running-code
 .DS_Store
