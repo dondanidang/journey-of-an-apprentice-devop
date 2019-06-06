@@ -7,7 +7,7 @@ resource "aws_autosacling_group" "terraform-cluster" {
   launch_configuration  = "${aws_launch_configuration.ec2-instance-configuration-of-cluster.id}"
 
   # Availability for robustness
-  availability_zones  = ["${data.availability_zones.all.names}"]
+  availability_zones  = ["${data.aws_availability_zones.all.names}"]
 
   # Attach load balancer
   load_balancers      = ["${aws_elb.terraform-cluster-elb.name}"]
@@ -74,7 +74,7 @@ resource "aws_elb" "terraform-cluster-elb" {
     name                = "terraform-asg-with-elb-example"
 
     # Work accross all the zones of my region
-    availability_zones  = ["${data.availability_zones.all.names}"]
+    availability_zones  = ["${data.aws_availability_zones.all.names}"]
 
     # Attach security group to elb. Indicate to ELB inbound and outbound requests are allowed
     security_group      = ["${aws_security_group.terraform-cluster-elb.id}"]
@@ -84,7 +84,7 @@ resource "aws_elb" "terraform-cluster-elb" {
     listener {
       lb_port = 80
       lb_protocol = "http"
-      instance_port = "${var.server.port}"
+      instance_port = "${var.server_port}"
       instance_protocol = "http"
     }
 
@@ -93,7 +93,7 @@ resource "aws_elb" "terraform-cluster-elb" {
       healthy_threshold = 2
       unhealthy_threshold = 2
       timeout = 3
-      target = "HTTP:${vars.server.port}/"
+      target = "HTTP:${var.server_port}/"
       interval = 30
     }
 }
